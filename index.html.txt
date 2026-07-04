@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ikkunaveljet - Tarjouslaskuri</title>
+
+    <meta name="theme-color" content="#0f4c81">
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <img src="logo.png" alt="Ikkunaveljet" class="logo">
+
+        <h1>Ikkunaveljet</h1>
+
+        <h2>Tarjouslaskuri</h2>
+
+    </header>
+
+    <section class="customer">
+
+        <label>Kohteen nimi</label>
+        <input type="text" id="kohde">
+
+        <label>Asiakkaan nimi</label>
+        <input type="text" id="asiakas">
+
+        <label>Osoite</label>
+        <input type="text" id="osoite">
+
+    </section>
+
+    <section id="items">
+
+        <!-- script.js luo kaikki rivit tähän -->
+
+    </section>
+
+    <section class="summary">
+
+        <h2>Yhteenveto</h2>
+
+        <div class="summary-row">
+            <span>Hinta (sis. ALV)</span>
+            <strong id="grossPrice">0 €</strong>
+        </div>
+
+        <div class="summary-row">
+            <span>Hinta (ALV 0%)</span>
+            <strong id="netPrice">0 €</strong>
+        </div>
+
+        <div class="summary-row">
+            <span>10 % tarjous</span>
+            <strong id="discount10">0 €</strong>
+        </div>
+
+        <div class="summary-row">
+            <span>15 % tarjous</span>
+            <strong id="discount15">0 €</strong>
+        </div>
+
+    </section>
+
+    <div class="buttons">
+
+        <button id="resetButton">
+            Uusi tarjous
+        </button>
+
+        <button id="pdfButton">
+            Luo tarjous
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

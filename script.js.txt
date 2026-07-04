@@ -1,0 +1,169 @@
+// =========================
+// IKKUNAVELJET TARJOUSLASKURI
+// =========================
+
+const ALV = 1.255;
+
+// Kaikki tuotteet ja hinnat
+const items = [
+    { name: "2-pintainen pieni", price: 10 },
+    { name: "2-pintainen normaali", price: 15 },
+    { name: "2-pintainen iso", price: 20 },
+
+    { name: "4-pintainen pieni", price: 15 },
+    { name: "4-pintainen normaali", price: 20 },
+    { name: "4-pintainen iso", price: 25 },
+
+    { name: "6-pintainen pieni", price: 25 },
+    { name: "6-pintainen normaali", price: 30 },
+    { name: "6-pintainen iso", price: 35 },
+
+    { name: "Tuuletusikkuna", price: 10 },
+    { name: "Parvekelasit", price: 10 },
+    { name: "Terassilasit", price: 12 },
+    { name: "Lasiovi", price: 10 },
+    { name: "Peilit", price: 10 },
+
+    { name: "Lisämaksu: Jatkovarsi", price: 10 },
+    { name: "Lisämaksu: Ruutukehikko", price: 10 },
+    { name: "Lisämaksu: Tikkaat", price: 80 }
+];
+
+const container = document.getElementById("items");
+
+// Luodaan kaikki rivit automaattisesti
+items.forEach((item, index) => {
+
+    item.count = 0;
+
+    const div = document.createElement("div");
+    div.className = "item";
+
+    div.innerHTML = `
+
+        <div class="item-name">${item.name}</div>
+
+        <div class="item-price">
+            ${item.price.toFixed(2)} €
+        </div>
+
+        <div class="counter">
+
+            <button onclick="minus(${index})">−</button>
+
+            <div class="count" id="count${index}">
+                0
+            </div>
+
+            <button onclick="plus(${index})">+</button>
+
+        </div>
+
+        <div class="line-total">
+            <span id="total${index}">
+                0.00 €
+            </span>
+        </div>
+
+    `;
+
+    container.appendChild(div);
+
+});
+
+// Lisää
+function plus(index){
+
+    items[index].count++;
+
+    update(index);
+
+}
+
+// Vähennä
+function minus(index){
+
+    if(items[index].count > 0){
+
+        items[index].count--;
+
+    }
+
+    update(index);
+
+}
+
+// Päivitä yksi rivi
+function update(index){
+
+    document.getElementById("count"+index).innerText =
+        items[index].count;
+
+    const total =
+        items[index].count *
+        items[index].price;
+
+    document.getElementById("total"+index).innerText =
+        total.toFixed(2)+" €";
+
+    calculate();
+
+}
+
+// Laske loppusummat
+function calculate(){
+
+    let gross = 0;
+
+    items.forEach(item=>{
+
+        gross += item.count * item.price;
+
+    });
+
+    const net = gross / ALV;
+
+    document.getElementById("grossPrice").innerText =
+        gross.toFixed(2)+" €";
+
+    document.getElementById("netPrice").innerText =
+        net.toFixed(2)+" €";
+
+    document.getElementById("discount10").innerText =
+        (gross*0.90).toFixed(2)+" €";
+
+    document.getElementById("discount15").innerText =
+        (gross*0.85).toFixed(2)+" €";
+
+}
+
+// Tyhjennä tarjous
+document
+.getElementById("resetButton")
+.addEventListener("click",()=>{
+
+    items.forEach((item,index)=>{
+
+        item.count=0;
+
+        update(index);
+
+    });
+
+});
+
+// Luo tarjous (väliaikainen)
+document
+.getElementById("pdfButton")
+.addEventListener("click",()=>{
+
+    alert(
+`Tarjouksen luonti tulee seuraavaan versioon.
+
+Tähän lisätään myöhemmin PDF-tarjouksen luonti.`
+    );
+
+});
+
+// Ensimmäinen laskenta
+calculate();
